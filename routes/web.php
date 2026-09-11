@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 
@@ -41,4 +41,8 @@ Route::get('/about', function () {
 
 Route::get('/detail', function () {
     return view('detail');
+});
+
+Route::get('/administrateur', function () {
+    return view('admin/admin');
 });
