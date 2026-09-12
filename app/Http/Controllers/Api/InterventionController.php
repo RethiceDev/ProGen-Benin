@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Intervention;
+use App\Models\Projet;
 use Illuminate\Http\Request;
 
 class InterventionController extends Controller
@@ -29,5 +30,14 @@ class InterventionController extends Controller
             'message' => 'Intervention enregistrée avec succès !',
             'data' => $intervention
         ], 201);
+    }
+
+    public function les_interventions(){
+        $interventions = Intervention::all();
+        $total_interventions = Intervention::count();
+
+        $projets = Projet::all();
+        $total_projets = Projet::count();
+        return view('index', compact('interventions','projets','total_projets','total_interventions'));
     }
 }

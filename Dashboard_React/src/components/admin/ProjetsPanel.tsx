@@ -18,7 +18,9 @@ export type Projet = {
   titre: string;
   statut: Status;
   detail: string;
-  media: string; // image URL ou nom du fichier
+  date_debut: string;
+  date_fin: string;
+  media: string;
 };
 
 const INITIAL: Projet[] = [
@@ -27,6 +29,8 @@ const INITIAL: Projet[] = [
     titre: "Cantine scolaire de Bohicon",
     statut: "Publié",
     detail: "Repas quotidiens pour 320 élèves du primaire.",
+    date_debut: "2026-01-10",
+    date_fin: "2026-07-10",
     media: "",
   },
   {
@@ -34,6 +38,8 @@ const INITIAL: Projet[] = [
     titre: "Forage d'eau potable — Zogbodomey",
     statut: "Publié",
     detail: "Deux forages équipés de pompes solaires.",
+    date_debut: "2026-02-01",
+    date_fin: "2026-05-30",
     media: "",
   },
   {
@@ -41,11 +47,13 @@ const INITIAL: Projet[] = [
     titre: "Champ-école maraîcher",
     statut: "Brouillon",
     detail: "Formation de 45 jeunes agriculteurs.",
+    date_debut: "2026-09-01",
+    date_fin: "2026-12-15",
     media: "",
   },
 ];
 
-const EMPTY: Projet = { id: "", titre: "", statut: "Brouillon", detail: "", media: "" };
+const EMPTY: Projet = { id: "", titre: "", statut: "Brouillon", detail: "", date_debut: "", date_fin: "", media: "" };
 
 /** CRUD view for NGO projects connected to Laravel API. */
 export function ProjetsPanel() {
@@ -53,7 +61,6 @@ export function ProjetsPanel() {
   const [openForm, setOpenForm] = useState(false);
   const [draft, setDraft] = useState<Projet>(EMPTY);
 
-  // État pour stocker le fichier réel à envoyer au backend
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
@@ -74,18 +81,18 @@ export function ProjetsPanel() {
       const formData = new FormData();
       formData.append('titre', draft.titre);
       formData.append('detail', draft.detail || '');
+      formData.append('date_debut', draft.date_debut || '');
+      formData.append('date_fin', draft.date_fin || '');
       formData.append('statut', draft.statut);
 
       if (selectedFile) {
         formData.append('media', selectedFile);
       }
 
-      // Envoi vers le backend Laravel avec gestion explicite des erreurs et headers vides
       const response = await fetch('http://127.0.0.1:8000/api/projets', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          // Ne PAS ajouter 'Content-Type': le navigateur le gère tout seul avec FormData
         },
         body: formData,
       });
@@ -104,6 +111,8 @@ export function ProjetsPanel() {
         titre: data.projet.titre,
         statut: data.projet.statut as Status,
         detail: data.projet.detail || '',
+        date_debut: data.projet.date_debut || '',
+        date_fin: data.projet.date_fin || '',
         media: data.projet.media ? `http://127.0.0.1:8000/storage/${data.projet.media}` : draft.media,
       } : draft;
 
@@ -115,7 +124,6 @@ export function ProjetsPanel() {
 
       setOpenForm(false);
 
-      // Affichage du message de succès sur la page
       setSuccessMessage("Projet enregistré avec succès !");
       setTimeout(() => {
         setSuccessMessage(null);
@@ -158,6 +166,7 @@ export function ProjetsPanel() {
                 <th className="px-5 py-3 font-semibold">Titre</th>
                 <th className="px-5 py-3 font-semibold">Statut</th>
                 <th className="px-5 py-3 font-semibold">Détail</th>
+                <th className="px-5 py-3 font-semibold">Dates</th>
                 <th className="px-5 py-3 font-semibold">Média</th>
                 <th className="px-5 py-3 text-right font-semibold">Actions</th>
               </tr>
@@ -171,6 +180,10 @@ export function ProjetsPanel() {
                   </td>
                   <td className="max-w-xs px-5 py-4 text-muted-foreground">
                     <span className="line-clamp-2">{p.detail || "—"}</span>
+                  </td>
+                  <td className="px-5 py-4 text-xs text-muted-foreground whitespace-nowrap">
+                    <div>Du: {p.date_debut || "—"}</div>
+                    <div>Au: {p.date_fin || "—"}</div>
                   </td>
                   <td className="px-5 py-4">
                     {p.media ? (
@@ -201,7 +214,7 @@ export function ProjetsPanel() {
               ))}
               {projets.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
+                  <td colSpan={6} className="px-5 py-12 text-center text-muted-foreground">
                     Aucun projet pour le moment.
                   </td>
                 </tr>
@@ -211,104 +224,102 @@ export function ProjetsPanel() {
         </div>
       </div>
 
-      {/* Create / edit modal */}
       <Dialog open={openForm} onOpenChange={setOpenForm}>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>{draft.titre && draft.id ? "Modifier le projet" : "Nouveau projet"}</DialogTitle>
-      <DialogDescription>
-        Renseignez les informations affichées sur le site public.
-      </DialogDescription>
-    </DialogHeader>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{draft.titre && draft.id ? "Modifier le projet" : "Nouveau projet"}</DialogTitle>
+            <DialogDescription>
+              Renseignez les informations affichées sur le site public.
+            </DialogDescription>
+          </DialogHeader>
 
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="titre">Titre</Label>
-        <Input
-          id="titre"
-          value={draft.titre}
-          onChange={(e) => setDraft({ ...draft, titre: e.target.value })}
-          placeholder="Ex. Cantine scolaire de Bohicon"
-        />
-      </div>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="titre">Titre</Label>
+              <Input
+                id="titre"
+                value={draft.titre}
+                onChange={(e) => setDraft({ ...draft, titre: e.target.value })}
+                placeholder="Ex. Cantine scolaire de Bohicon"
+              />
+            </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="detail">Détail</Label>
-        <textarea
-          id="detail"
-          rows={3}
-          value={draft.detail}
-          onChange={(e) => setDraft({ ...draft, detail: e.target.value })}
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
+            <div className="space-y-2">
+              <Label htmlFor="detail">Détail</Label>
+              <textarea
+                id="detail"
+                rows={3}
+                value={draft.detail}
+                onChange={(e) => setDraft({ ...draft, detail: e.target.value })}
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              />
+            </div>
 
-      {/* Ajout des champs Date de début et Date de fin */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="date_debut">Date de début</Label>
-          <Input
-            id="date_debut"
-            type="date"
-            value={draft.date_debut || ""}
-            onChange={(e) => setDraft({ ...draft, date_debut: e.target.value })}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="date_fin">Date de fin</Label>
-          <Input
-            id="date_fin"
-            type="date"
-            value={draft.date_fin || ""}
-            onChange={(e) => setDraft({ ...draft, date_fin: e.target.value })}
-          />
-        </div>
-      </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="date_debut">Date de début</Label>
+                <Input
+                  id="date_debut"
+                  type="date"
+                  value={draft.date_debut || ""}
+                  onChange={(e) => setDraft({ ...draft, date_debut: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="date_fin">Date de fin</Label>
+                <Input
+                  id="date_fin"
+                  type="date"
+                  value={draft.date_fin || ""}
+                  onChange={(e) => setDraft({ ...draft, date_fin: e.target.value })}
+                />
+              </div>
+            </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="statut">Statut</Label>
-          <select
-            id="statut"
-            value={draft.statut}
-            onChange={(e) => setDraft({ ...draft, statut: e.target.value as Status })}
-            className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
-          >
-            <option>Brouillon</option>
-            <option>Publié</option>
-            <option>Archivé</option>
-          </select>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="media">Média (Fichier)</Label>
-          <div className="flex items-center gap-2">
-            <Input
-              id="media"
-              type="file"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  setSelectedFile(file);
-                  setDraft({ ...draft, media: file.name });
-                }
-              }}
-              className="cursor-pointer text-sm file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
-            />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="statut">Statut</Label>
+                <select
+                  id="statut"
+                  value={draft.statut}
+                  onChange={(e) => setDraft({ ...draft, statut: e.target.value as Status })}
+                  className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option>Brouillon</option>
+                  <option>Publié</option>
+                  <option>Archivé</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="media">Média (Fichier)</Label>
+                <div className="flex items-center gap-2">
+                  <Input
+                    id="media"
+                    type="file"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setSelectedFile(file);
+                        setDraft({ ...draft, media: file.name });
+                      }
+                    }}
+                    className="cursor-pointer text-sm file:mr-4 file:py-1 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <DialogFooter>
-      <Button variant="outline" onClick={() => setOpenForm(false)}>
-        Annuler
-      </Button>
-      <Button onClick={save} disabled={!draft.titre.trim()}>
-        Enregistrer
-      </Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpenForm(false)}>
+              Annuler
+            </Button>
+            <Button onClick={save} disabled={!draft.titre.trim()}>
+              Enregistrer
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

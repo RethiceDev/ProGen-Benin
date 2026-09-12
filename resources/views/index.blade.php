@@ -99,58 +99,32 @@
     <div class="container">
       <div class="text-center mb-5">
         <span class="section-eyebrow" data-fr="Nos actions" data-en="Our work">Nos actions</span>
-        <h2 class="mt-2" data-fr="Nos 3 axes d'intervention" data-en="Our 3 areas of intervention">Nos 3 axes d'intervention</h2>
+        <h2 class="mt-2" data-fr="Nos 3 axes d'intervention" data-en="Our 3 areas of intervention">Nos {{$total_interventions}} axes d'intervention</h2>
       </div>
       <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=700&q=80"
-              class="card-img-cover" alt="Salle de classe et livres" />
-            <div class="card-body p-4">
-              <div class="icon-badge mb-3"><i class="bi bi-book"></i></div>
-              <h5 data-fr="Éducation" data-en="Education">Éducation</h5>
-              <p class="text-muted mb-0"
-                data-fr="Scolarisation, alphabétisation et soutien aux enfants pour un accès équitable au savoir."
-                data-en="Schooling, literacy and support for children for fair access to knowledge.">
-                Scolarisation, alphabétisation et soutien aux enfants pour un accès équitable au savoir.
-              </p>
+        @foreach ($interventions as $intervention)
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="{{ asset('storage/' . $intervention->image) }}"
+                    class="card-img-cover" alt="Salle de classe et livres" />
+                    <div class="card-body p-4">
+                    <div class="icon-badge mb-3"><i class="bi bi-book"></i></div>
+                    <h5 data-fr="Éducation" data-en="Education">{{$intervention -> titre}}</h5>
+                    <p class="text-muted mb-0"
+                        data-fr="Scolarisation, alphabétisation et soutien aux enfants pour un accès équitable au savoir."
+                        data-en="Schooling, literacy and support for children for fair access to knowledge.">
+                        {{$intervention -> description}}
+                    </p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=700&q=80"
-              class="card-img-cover" alt="Accès à l'eau potable et à la santé" />
-            <div class="card-body p-4">
-              <div class="icon-badge mb-3"><i class="bi bi-droplet-half"></i></div>
-              <h5 data-fr="Santé &amp; Eau" data-en="Health &amp; Water">Santé &amp; Eau</h5>
-              <p class="text-muted mb-0"
-                data-fr="Forages, sensibilisation et campagnes de santé pour des communautés en meilleure santé."
-                data-en="Boreholes, awareness and health campaigns for healthier communities.">
-                Forages, sensibilisation et campagnes de santé pour des communautés en meilleure santé.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1595974482597-4c9c6e0d4c9e?auto=format&fit=crop&w=700&q=80"
-              class="card-img-cover" alt="Agriculture et autonomisation des femmes" />
-            <div class="card-body p-4">
-              <div class="icon-badge mb-3"><i class="bi bi-tree"></i></div>
-              <h5 data-fr="Développement &amp; Agriculture" data-en="Development &amp; Agriculture">Développement &amp; Agriculture</h5>
-              <p class="text-muted mb-0"
-                data-fr="Autonomisation des femmes et des Gens par des activités génératrices de revenus."
-                data-en="Empowering women and youth through income-generating activities.">
-                Autonomisation des femmes et des Gens par des activités génératrices de revenus.
-              </p>
-            </div>
-          </div>
-        </div>
+        @endforeach
+        
+       
       </div>
       <div class="text-center mt-5">
         <a href="projects.html" class="btn btn-navy px-4"
-          data-fr="Voir tous nos projets" data-en="See all our projects">Voir tous nos projets</a>
+          data-fr="Voir tous nos projets" data-en="See all our projects">Voir toutes nos interventions</a>
       </div>
     </div>
   </section>
@@ -256,58 +230,38 @@
     <div class="container">
       <div class="text-center mb-5">
         <span class="section-eyebrow" data-fr="Actualités" data-en="News">Actualités</span>
-        <h2 class="mt-2" data-fr="Nos activités récentes" data-en="Our recent activities">Nos activités récentes</h2>
+        <h2 class="mt-2" data-fr="Nos activités récentes" data-en="Our recent activities">Nos {{$total_projets}} activités récentes</h2>
       </div>
       <div class="row g-4">
-        <div class="col-md-4">
-          <article class="card h-100 news-card">
-            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&q=80"
-              class="card-img-cover" alt="Lancement de projet à Abomey-Calavi" />
-            <div class="card-body p-4">
-              <small class="text-accent fw-semibold" data-fr="12 janvier 2026" data-en="January 12, 2026">12 janvier 2026</small>
-              <h5 class="mt-1" data-fr="Lancement du projet à Abomey-Calavi" data-en="Project launch in Abomey-Calavi">Lancement du projet à Abomey-Calavi</h5>
-              <p class="text-muted mb-3"
-                data-fr="Un nouveau programme éducatif pour 500 enfants a été inauguré ce mois-ci."
-                data-en="A new educational program for 500 children was inaugurated this month.">
-                Un nouveau programme éducatif pour 500 enfants a été inauguré ce mois-ci.
-              </p>
-              <a href="detail.html?type=news&amp;id=launch" class="fw-semibold text-navy" data-fr="Lire la suite →" data-en="Read more →">Lire la suite →</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="card h-100 news-card">
-            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=700&q=80"
-              class="card-img-cover" alt="Journée de sensibilisation à la santé" />
-            <div class="card-body p-4">
-              <small class="text-accent fw-semibold" data-fr="28 février 2026" data-en="February 28, 2026">28 février 2026</small>
-              <h5 class="mt-1" data-fr="Journée de sensibilisation à la santé" data-en="Health awareness day">Journée de sensibilisation à la santé</h5>
-              <p class="text-muted mb-3"
-                data-fr="Dépistages gratuits et ateliers d'hygiène organisés dans trois quartiers de Cotonou."
-                data-en="Free screenings and hygiene workshops held in three districts of Cotonou.">
-                Dépistages gratuits et ateliers d'hygiène organisés dans trois quartiers de Cotonou.
-              </p>
-              <a href="detail.html?type=news&amp;id=health-day" class="fw-semibold text-navy" data-fr="Lire la suite →" data-en="Read more →">Lire la suite →</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-md-4">
-          <article class="card h-100 news-card">
-            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=700&q=80"
-              class="card-img-cover" alt="Distribution de kits scolaires" />
-            <div class="card-body p-4">
-              <small class="text-accent fw-semibold" data-fr="15 mars 2026" data-en="March 15, 2026">15 mars 2026</small>
-              <h5 class="mt-1" data-fr="Distribution de kits scolaires" data-en="School kit distribution">Distribution de kits scolaires</h5>
-              <p class="text-muted mb-3"
-                data-fr="Plus de 1 200 kits distribués aux élèves des zones rurales du département du Zou."
-                data-en="Over 1,200 kits distributed to students in rural areas of the Zou department.">
-                Plus de 1 200 kits distribués aux élèves des zones rurales du département du Zou.
-              </p>
-              <a href="detail.html?type=news&amp;id=kits" class="fw-semibold text-navy" data-fr="Lire la suite →" data-en="Read more →">Lire la suite →</a>
-            </div>
-          </article>
-        </div>
+
+        @foreach ($projets as $projet)
+            <div class="col-md-4">
+                <article class="card h-100 news-card">
+                    
+                    <img src="{{ asset('storage/' .$projet->media)}}"
+                    class="card-img-cover" alt="Lancement de projet à Abomey-Calavi" />
+                    <div class="card-body p-4">
+                    <small class="text-accent fw-semibold" data-fr="12 janvier 2026" data-en="January 12, 2026">{{$projet ->date_debut}}</small>
+                    <h5 class="mt-1" data-fr="Lancement du projet à Abomey-Calavi" data-en="Project launch in Abomey-Calavi">{{$projet ->titre}}</h5>
+                    <p class="text-muted mb-3"
+                        data-fr="Un nouveau programme éducatif pour 500 enfants a été inauguré ce mois-ci."
+                        data-en="A new educational program for 500 children was inaugurated this month.">
+                        {{$projet ->detail}}
+                    </p>
+                    <a href="detail.html?type=news&amp;id=launch" class="fw-semibold text-navy" data-fr="Lire la suite →" data-en="Read more →">Lire la suite →</a>
+                    </div>
+                </article>
+                </div>
+        @endforeach
+        
+       
       </div>
+
+       <div class="text-center mt-5">
+            <a href="projects.html" class="btn btn-navy px-4"
+            data-fr="Voir tous nos projets" data-en="See all our projects">Voir toutes nos activités</a>
+      </div>
+
     </div>
   </section>
 

@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->text('detail')->nullable();
-            $table->date('date_debut')->nullable(); // AJOUT
-            $table->date('date_fin')->nullable();   // AJOUT
+            $table->date('date_debut'); // AJOUT
+            $table->date('date_fin');   // AJOUT
             $table->string('statut')->default('Brouillon');
             $table->string('media')->nullable();
             $table->timestamps();

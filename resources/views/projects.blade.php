@@ -28,76 +28,55 @@
     <div class="container">
       <h2 class="mb-4" data-fr="Projets en cours" data-en="Ongoing projects">Projets en cours</h2>
       <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Projet d'aide scolaire" />
-            <div class="card-body p-4">
-              <span class="badge bg-accent mb-2" data-fr="En cours" data-en="Ongoing">En cours</span>
-              <h5 data-fr="Aide scolaire 2026" data-en="School support 2026">Aide scolaire 2026</h5>
-              <p class="text-muted small" data-fr="Distribution de fournitures et parrainage scolaire pour 1 500 enfants." data-en="School supplies and sponsorship for 1,500 children.">Distribution de fournitures et parrainage scolaire pour 1 500 enfants.</p>
-              <a href="detail.html?type=project&amp;id=school" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1541844053589-346841d0b34c?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Projet d'accès à l'eau potable" />
-            <div class="card-body p-4">
-              <span class="badge bg-accent mb-2" data-fr="En cours" data-en="Ongoing">En cours</span>
-              <h5 data-fr="Eau potable pour tous" data-en="Clean water for all">Eau potable pour tous</h5>
-              <p class="text-muted small" data-fr="Construction de forages dans les villages du département du Zou." data-en="Building boreholes in villages of the Zou department.">Construction de forages dans les villages du département du Zou.</p>
-              <a href="detail.html?type=project&amp;id=water" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Projet d'autonomisation des femmes" />
-            <div class="card-body p-4">
-              <span class="badge bg-accent mb-2" data-fr="En cours" data-en="Ongoing">En cours</span>
-              <h5 data-fr="Autonomisation des femmes" data-en="Women empowerment">Autonomisation des femmes</h5>
-              <p class="text-muted small" data-fr="Formation professionnelle et microcrédit pour 200 femmes." data-en="Vocational training and microcredit for 200 women.">Formation professionnelle et microcrédit pour 200 femmes.</p>
-              <a href="detail.html?type=project&amp;id=women" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
-            </div>
-          </div>
-        </div>
+         @if($projets_en_cours ->isEmpty())
+                    <div class="card h-100">
+                       <p>Aucun projet realisés</p>
+                    </div>
+            @else
+                @foreach ($projets_en_cours as $les_p)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <img src="{{ asset('storage/'.$les_p->media)}}" class="card-img-cover" alt="{{ $les_p ->titre}}" />
+                            <div class="card-body p-4">
+                            <span class="badge bg-accent mb-2" data-fr="En cours" data-en="Ongoing">En cours</span>
+                            <h5 data-fr="Aide scolaire 2026" data-en="School support 2026">{{ $les_p ->titre}}</h5>
+                            <p class="text-muted small" data-fr="Distribution de fournitures et parrainage scolaire pour 1 500 enfants." data-en="School supplies and sponsorship for 1,500 children."> {{$les_p ->detail}} </p>
+                            <a href="detail.html?type=project&amp;id=school" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+         @endif
+       
       </div>
 
       <h2 class="mt-5 mb-4" data-fr="Projets réalisés" data-en="Completed projects">Projets réalisés</h2>
+      
       <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Bibliothèque communautaire" />
-            <div class="card-body p-4">
-              <span class="badge bg-secondary mb-2" data-fr="Terminé" data-en="Completed">Terminé</span>
-              <h5 data-fr="Bibliothèque communautaire" data-en="Community library">Bibliothèque communautaire</h5>
-              <p class="text-muted small" data-fr="Ouverture d'un espace de lecture à Abomey-Calavi." data-en="Opening of a reading space in Abomey-Calavi.">Ouverture d'un espace de lecture à Abomey-Calavi.</p>
-              <a href="detail.html?type=project&amp;id=library" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Campagne de santé" />
-            <div class="card-body p-4">
-              <span class="badge bg-secondary mb-2" data-fr="Terminé" data-en="Completed">Terminé</span>
-              <h5 data-fr="Campagne de santé communautaire" data-en="Community health campaign">Campagne de santé communautaire</h5>
-              <p class="text-muted small" data-fr="Dépistages et vaccinations pour 3 000 personnes." data-en="Screenings and vaccinations for 3,000 people.">Dépistages et vaccinations pour 3 000 personnes.</p>
-              <a href="detail.html?type=project&amp;id=health" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Jardins maraîchers" />
-            <div class="card-body p-4">
-              <span class="badge bg-secondary mb-2" data-fr="Terminé" data-en="Completed">Terminé</span>
-              <h5 data-fr="Jardins maraîchers solidaires" data-en="Community vegetable gardens">Jardins maraîchers solidaires</h5>
-              <p class="text-muted small" data-fr="Création de jardins pour renforcer la sécurité alimentaire." data-en="Creating gardens to strengthen food security.">Création de jardins pour renforcer la sécurité alimentaire.</p>
-              <a href="detail.html?type=project&amp;id=gardens" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
-            </div>
-          </div>
-        </div>
+        @if($les_projets_termine ->isEmpty())
+            <div class="card h-100">
+                       <p>Aucun projet realisés</p>
+                    </div>
+            @else
+                @foreach ($les_projets_termine as $pr_t)
+                            <div class="col-md-6 col-lg-4">
+                                <div class="card h-100">
+                                    <img src="{{ asset('storage/'.$pr_t->media)}}"  class="card-img-cover" alt="{{ $pr_t ->titre}}" />
+                                    <div class="card-body p-4">
+                                    <span class="badge bg-secondary mb-2" data-fr="Terminé" data-en="Completed">Terminé ({{ $pr_t ->date_fin}})</span>
+                                    <h5 data-fr="Bibliothèque communautaire" data-en="Community library">{{ $pr_t ->titre}}</h5>
+                                    <p class="text-muted small" data-fr="Ouverture d'un espace de lecture à Abomey-Calavi." data-en="Opening of a reading space in Abomey-Calavi.">{{ $pr_t ->detail}}</p>
+                                    <a href="detail.html?type=project&amp;id=library" class="btn btn-sm btn-outline-navy" data-fr="Voir le projet" data-en="View project">Voir le projet</a>
+                                    </div>
+                                </div>
+                            </div>
+                @endforeach  
+        
+                              
+        @endif
+        
+        
+        
       </div>
     </div>
   </section>

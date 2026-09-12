@@ -28,58 +28,30 @@
     <div class="container">
       <div class="row g-4">
         <!-- Membre -->
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 text-center">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" class="card-img-cover" alt="Portrait du directeur exécutif" />
-            <div class="card-body p-4">
-              <h5 class="mb-1">Jean K.</h5>
-              <p class="text-accent fw-semibold small mb-2" data-fr="Directeur exécutif" data-en="Executive Director">Directeur exécutif</p>
-              <div class="d-flex justify-content-center gap-2">
-                <a href="#" class="social-icon bg-navy" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="social-icon bg-navy" aria-label="Email"><i class="bi bi-envelope"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 text-center">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=80" class="card-img-cover" alt="Portrait de la coordinatrice des programmes" />
-            <div class="card-body p-4">
-              <h5 class="mb-1">Fatou A.</h5>
-              <p class="text-accent fw-semibold small mb-2" data-fr="Coordinatrice des programmes" data-en="Programs Coordinator">Coordinatrice des programmes</p>
-              <div class="d-flex justify-content-center gap-2">
-                <a href="#" class="social-icon bg-navy" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="social-icon bg-navy" aria-label="Email"><i class="bi bi-envelope"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 text-center">
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=500&q=80" class="card-img-cover" alt="Portrait du responsable terrain" />
-            <div class="card-body p-4">
-              <h5 class="mb-1">Marc T.</h5>
-              <p class="text-accent fw-semibold small mb-2" data-fr="Responsable terrain" data-en="Field Manager">Responsable terrain</p>
-              <div class="d-flex justify-content-center gap-2">
-                <a href="#" class="social-icon bg-navy" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="social-icon bg-navy" aria-label="Email"><i class="bi bi-envelope"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card h-100 text-center">
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=500&q=80" class="card-img-cover" alt="Portrait de la responsable communication" />
-            <div class="card-body p-4">
-              <h5 class="mb-1">Aïcha B.</h5>
-              <p class="text-accent fw-semibold small mb-2" data-fr="Responsable communication" data-en="Communications Lead">Responsable communication</p>
-              <div class="d-flex justify-content-center gap-2">
-                <a href="#" class="social-icon bg-navy" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                <a href="#" class="social-icon bg-navy" aria-label="Email"><i class="bi bi-envelope"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
+        @if ($menbres ->isEmpty())
+            <div class="card h-100">
+                       <p>Aucun Membres</p>
+                    </div>
+        @else
+             @foreach ($menbres as $m)
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card h-100 text-center">
+                        <img src="{{ asset('storage/'.$m->avatar)}}" class="card-img-cover" alt="{{ $m->role }}" />
+                        <div class="card-body p-4">
+                        <h5 class="mb-1">{{ $m->nom }}</h5>
+                        <p class="text-accent fw-semibold small mb-2" data-fr="Directeur exécutif" data-en="Executive Director">{{ $m->role }}</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="#" class="social-icon bg-navy" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="social-icon bg-navy" aria-label="Email"><i class="bi bi-envelope"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+       
+        
+        
       </div>
       <div class="text-center mt-5">
         <p class="text-muted" data-fr="Envie de rejoindre l'aventure ?" data-en="Want to join the adventure?">Envie de rejoindre l'aventure ?</p>

@@ -14,10 +14,10 @@
 
   function applyLanguage(lang) {
     // Texte : éléments avec data-fr / data-en
-    document.querySelectorAll("[data-fr]").forEach(function (el) {
+   /* document.querySelectorAll("[data-fr]").forEach(function (el) {
       const value = el.getAttribute("data-" + lang);
       if (value !== null) el.innerHTML = value;
-    });
+    });*/
     // Placeholders : data-fr-ph / data-en-ph
     document.querySelectorAll("[data-fr-ph]").forEach(function (el) {
       const value = el.getAttribute("data-" + lang + "-ph");
