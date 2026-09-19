@@ -13,3 +13,6 @@ Route::get('/intervention', [InterventionController::class, 'listes']);
 Route::get('/equipes', [EquipeController::class, 'listes_equipes']);
 Route::get('/benevoles', [BenevoleController::class, 'listes_benevoles']);
 
+
+//Route::get('/site', [SiteController::class, 'site']);
+

@@ -21,6 +21,8 @@
           <li class="nav-item"><a class="nav-link" href="/support" data-fr="Nous soutenir" data-en="Support us">Nous soutenir</a></li>
           <li class="nav-item"><a class="nav-link" href="/partner" data-fr="Devenir partenaire" data-en="Become a partner">Devenir partenaire</a></li>
           <li class="nav-item"><a class="nav-link" href="/contact" data-fr="Contact" data-en="Contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="http://localhost:8080/" data-fr="Contact" data-en="Contact">Administrateur</a></li>
+
           <li class="nav-item ms-lg-2">
             <button type="button" class="lang-switch btn btn-outline-light btn-sm px-2 py-1" aria-label="Changer de langue">EN</button>
           </li>

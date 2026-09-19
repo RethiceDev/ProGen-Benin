@@ -109,7 +109,7 @@ export function AdminSidebar({ active, onSelect, open, onClose }: Props) {
           <ul className="space-y-1">
             <li>
               <a
-                href="/"
+                href="http://127.0.0.1:8000/"
                 className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-sidebar-foreground/80 transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground"
               >
                 <ExternalLink className="size-4" />

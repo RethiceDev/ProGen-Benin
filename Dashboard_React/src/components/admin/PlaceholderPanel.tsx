@@ -130,8 +130,8 @@ export function PlaceholderPanel() {
                 <th className="px-5 py-3 font-semibold">Email</th>
                 <th className="px-5 py-3 font-semibold">Téléphone</th>
                 <th className="px-5 py-3 font-semibold">Domaine</th>
-                <th className="px-5 py-3 font-semibold">Fichier</th>
-                <th className="px-5 py-3 text-right font-semibold">Actions</th>
+                <th className="px-5 py-3 font-semibold">Dossier</th>
+                <th className="px-5 py-3 text-right font-semibold">Statut de la candidature</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
