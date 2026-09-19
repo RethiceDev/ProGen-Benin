@@ -33,6 +33,14 @@ class ProjetController extends Controller
         ], 201);
     }
 
+    public function listes(){
+            return response()->json(
+                Projet :: latest()->get()
+            );
+            
+
+    }
+
     public function les_projets_en_cours(){
         $aujourdhui = Carbon::today();
 
@@ -47,6 +55,7 @@ class ProjetController extends Controller
             ->get();
 
          return view('projects',compact('projets_en_cours','les_projets_termine'));
+         
     }
 
    

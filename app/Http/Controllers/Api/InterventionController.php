@@ -35,9 +35,27 @@ class InterventionController extends Controller
     public function les_interventions(){
         $interventions = Intervention::all();
         $total_interventions = Intervention::count();
-
-        $projets = Projet::all();
+        $projets = Projet::latest()->take(3)->get();
         $total_projets = Projet::count();
-        return view('index', compact('interventions','projets','total_projets','total_interventions'));
+        $projet_recents = Projet::latest()->first();
+        return view('index', compact('interventions','projets','total_projets','total_interventions','projet_recents'));
+        
     }
+    public function titre_intervention(){
+        $titre_intervention = Intervention::all();
+
+        return response()->json([
+            'message' => 'les titres intervention',
+            'data' => $titre_intervention
+        ], 201);
+    }
+
+     public function listes(){
+            return response()->json(
+                Intervention :: latest()->get()
+            );
+            
+
+    }
+
 }

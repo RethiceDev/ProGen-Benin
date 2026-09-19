@@ -16,12 +16,29 @@
   <header class="page-hero"><div class="container text-center"><h1 class="display-5" data-fr="Actualités" data-en="News">Actualités</h1><p class="lead mb-0 text-white-50" data-fr="Les actions et les histoires de Pro Jeune Bénin sur le terrain." data-en="Pro Jeune Bénin's actions and stories from the field.">Les actions et les histoires de Pro Jeune Bénin sur le terrain.</p></div></header>
 
   <main class="py-5"><div class="container"><div class="row g-4">
-    <div class="col-md-6 col-lg-4"><article class="card h-100 news-card"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Lancement de projet à Abomey-Calavi" /><div class="card-body p-4"><small class="text-accent fw-semibold" data-fr="12 janvier 2026" data-en="January 12, 2026">12 janvier 2026</small><h5 class="mt-1" data-fr="Lancement du projet à Abomey-Calavi" data-en="Project launch in Abomey-Calavi">Lancement du projet à Abomey-Calavi</h5><p class="text-muted" data-fr="Un nouveau programme éducatif pour 500 enfants a été inauguré ce mois-ci." data-en="A new educational program for 500 children was inaugurated this month.">Un nouveau programme éducatif pour 500 enfants a été inauguré ce mois-ci.</p><a href="detail.html?type=news&amp;id=launch" class="btn btn-outline-navy btn-sm" data-fr="Lire la suite" data-en="Read more">Lire la suite</a></div></article></div>
-    <div class="col-md-6 col-lg-4"><article class="card h-100 news-card"><img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Journée de sensibilisation à la santé" /><div class="card-body p-4"><small class="text-accent fw-semibold" data-fr="28 février 2026" data-en="February 28, 2026">28 février 2026</small><h5 class="mt-1" data-fr="Journée de sensibilisation à la santé" data-en="Health awareness day">Journée de sensibilisation à la santé</h5><p class="text-muted" data-fr="Dépistages gratuits et ateliers d'hygiène organisés dans trois quartiers de Cotonou." data-en="Free screenings and hygiene workshops held in three districts of Cotonou.">Dépistages gratuits et ateliers d'hygiène organisés dans trois quartiers de Cotonou.</p><a href="detail.html?type=news&amp;id=health-day" class="btn btn-outline-navy btn-sm" data-fr="Lire la suite" data-en="Read more">Lire la suite</a></div></article></div>
-    <div class="col-md-6 col-lg-4"><article class="card h-100 news-card"><img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=700&q=80" class="card-img-cover" alt="Distribution de kits scolaires" /><div class="card-body p-4"><small class="text-accent fw-semibold" data-fr="15 mars 2026" data-en="March 15, 2026">15 mars 2026</small><h5 class="mt-1" data-fr="Distribution de kits scolaires" data-en="School kit distribution">Distribution de kits scolaires</h5><p class="text-muted" data-fr="Plus de 1 200 kits distribués aux élèves des zones rurales du département du Zou." data-en="Over 1,200 kits distributed to students in rural areas of the Zou department.">Plus de 1 200 kits distribués aux élèves des zones rurales du département du Zou.</p><a href="detail.html?type=news&amp;id=kits" class="btn btn-outline-navy btn-sm" data-fr="Lire la suite" data-en="Read more">Lire la suite</a></div></article></div>
-  </div></div></main>
+        @if ($projets_en_cours->isEmpty())
+                <div class="card h-100">
+                    <p>Aucune actualités</p>
+                </div>
+            @else
+                    @foreach ($projets_en_cours as $p)
+                        <div class="col-md-6 col-lg-4"><article class="card h-100 news-card">
+                            
+                            <img src="{{ asset('storage/'.$p->media) }}" class="card-img-cover"/>
+                            <div class="card-body p-4">
+                                <small class="text-accent fw-semibold" data-fr="12 janvier 2026" data-en="January 12, 2026">{{$p->date_debut}}</small>
+                                <h5 class="mt-1" data-fr="Lancement du projet à Abomey-Calavi" data-en="Project launch in Abomey-Calavi">{{$p->titre}}</h5>
+                                <p class="text-muted" data-fr="Un nouveau programme éducatif pour 500 enfants a été inauguré ce mois-ci." data-en="A new educational program for 500 children was inaugurated this month.">{{$p->detail}}</p>
+                                <a href="/detail?{{$p->id}}" class="btn btn-outline-navy btn-sm" data-fr="Lire la suite" data-en="Read more">Lire la suite</a></div></article>
+                            </div>
+                    @endforeach
+                    
+        @endif
+    
+  </main>
+    
+ @include('footer')
 
-  <footer class="site-footer pt-5 pb-4"><div class="container"><div class="row g-4"><div class="col-lg-4"><div class="d-flex align-items-center mb-3"><span class="brand-mark">PJB</span><span class="fw-bold text-white fs-5">Pro Jeune Bénin</span></div><p class="small" data-fr="ONG béninoise engagée pour l'éducation, la santé et le développement durable des communautés." data-en="Beninese NGO committed to education, health and sustainable community development.">ONG béninoise engagée pour l'éducation, la santé et le développement durable des communautés.</p></div><div class="col-6 col-lg-2"><h5 class="mb-3" data-fr="Navigation" data-en="Navigation">Navigation</h5><ul class="list-unstyled small"><li class="mb-2"><a href="projects.html" data-fr="Projets" data-en="Projects">Projets</a></li><li class="mb-2"><a href="news.html" data-fr="Actualités" data-en="News">Actualités</a></li><li class="mb-2"><a href="support.html" data-fr="Nous soutenir" data-en="Support us">Nous soutenir</a></li></ul></div><div class="col-6 col-lg-3"><h5 class="mb-3" data-fr="Contact" data-en="Contact">Contact</h5><p class="small mb-0">+229 01 00 00 00 00<br />contact@projeunebenin.org</p></div></div><hr class="border-secondary mt-4" /><div class="text-center small">© 2026 Pro Jeune Bénin</div></div></footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="js/main.js"></script>
 </body>
 </html>

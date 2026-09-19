@@ -13,7 +13,7 @@
 
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-          <li class="nav-item"><a class="nav-link" href="/index" data-fr="Accueil" data-en="Home">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="/" data-fr="Accueil" data-en="Home">Accueil</a></li>
           <li class="nav-item"><a class="nav-link" href="/about" data-fr="À propos" data-en="About">À propos</a></li>
           <li class="nav-item"><a class="nav-link" href="/team" data-fr="Équipe" data-en="Team">Équipe</a></li>
           <li class="nav-item"><a class="nav-link" href="/projects" data-fr="Projets" data-en="Projects">Projets</a></li>

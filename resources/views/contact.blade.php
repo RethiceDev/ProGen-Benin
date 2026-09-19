@@ -71,23 +71,39 @@
         <div class="col-lg-7">
           <div class="form-section-card p-4 p-md-5">
             <h3 class="mb-4" data-fr="Envoyez un message" data-en="Send a message">Envoyez un message</h3>
-            <form onsubmit="return false;">
+            <form action="/contacter" method="POST" >
+                 @if(session('success'))
+                    <div class="alert alert-success text-center">{{ session('success') }}</div>
+                @endif
+                @csrf
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="form-label" data-fr="Nom complet" data-en="Full name">Nom complet</label>
-                  <input type="text" class="form-control" data-fr-ph="Votre nom" data-en-ph="Your name" placeholder="Votre nom" />
+                  <input name="nom" type="text" class="form-control" data-fr-ph="Votre nom" data-en-ph="Your name" placeholder="Votre nom" />
+                    @error('nom') 
+                        <div style="background-color: rgba(250, 5, 5, 0.2)" class="field-error"><i class="bi bi-exclamation-circle"></i>{{ $message }}</div> 
+                    @enderror
                 </div>
                 <div class="col-md-6">
                   <label class="form-label" data-fr="Email" data-en="Email">Email</label>
-                  <input type="email" class="form-control" data-fr-ph="Adresse email" data-en-ph="Email address" placeholder="Adresse email" />
+                  <input name="email" type="email" class="form-control" data-fr-ph="Adresse email" data-en-ph="Email address" placeholder="Adresse email" />
+                     @error('email') 
+                        <div style="background-color: rgba(250, 5, 5, 0.2)" class="field-error"><i class="bi bi-exclamation-circle"></i>{{ $message }}</div> 
+                     @enderror
                 </div>
                 <div class="col-12">
                   <label class="form-label" data-fr="Sujet" data-en="Subject">Sujet</label>
-                  <input type="text" class="form-control" data-fr-ph="Objet de votre message" data-en-ph="Subject of your message" placeholder="Objet de votre message" />
+                  <input name="sujet" type="text" class="form-control" data-fr-ph="Objet de votre message" data-en-ph="Subject of your message" placeholder="Objet de votre message" />
+                     @error('sujet') 
+                        <div style="background-color: rgba(250, 5, 5, 0.2)" class="field-error"><i class="bi bi-exclamation-circle"></i>{{ $message }}</div> 
+                    @enderror
                 </div>
                 <div class="col-12">
                   <label class="form-label" data-fr="Message" data-en="Message">Message</label>
-                  <textarea class="form-control" rows="5" data-fr-ph="Votre message…" data-en-ph="Your message…" placeholder="Votre message…"></textarea>
+                  <textarea name="message" class="form-control" rows="5" data-fr-ph="Votre message…" data-en-ph="Your message…" placeholder="Votre message…"></textarea>
+                   @error('message') 
+                        <div style="background-color: rgba(250, 5, 5, 0.2)" class="field-error"><i class="bi bi-exclamation-circle"></i>{{ $message }}</div> 
+                    @enderror 
                 </div>
               </div>
               <button type="submit" class="btn btn-accent btn-lg w-100 mt-4" data-fr="Envoyer le message" data-en="Send message">Envoyer le message</button>
@@ -111,51 +127,9 @@
   </section>
 
   <!-- PIED DE PAGE (Blade : -->
-  <footer class="site-footer pt-5 pb-4">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <div class="d-flex align-items-center mb-3"><span class="brand-mark">PJB</span><span class="fw-bold text-white fs-5">Pro Jeune Bénin</span></div>
-          <p class="small" data-fr="ONG béninoise engagée pour l'éducation, la santé et le développement durable des communautés." data-en="Beninese NGO committed to education, health and sustainable community development.">ONG béninoise engagée pour l'éducation, la santé et le développement durable des communautés.</p>
-          <div class="d-flex gap-2 mt-3">
-            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="social-icon" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="social-icon" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-          </div>
-        </div>
-        <div class="col-6 col-lg-2">
-          <h5 class="mb-3" data-fr="Navigation" data-en="Navigation">Navigation</h5>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
-            <li class="mb-2"><a href="team.html" data-fr="Équipe" data-en="Team">Équipe</a></li>
-            <li class="mb-2"><a href="projects.html" data-fr="Projets" data-en="Projects">Projets</a></li>
-            <li class="mb-2"><a href="support.html" data-fr="Nous soutenir" data-en="Support us">Nous soutenir</a></li>
-            <li class="mb-2"><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-3">
-          <h5 class="mb-3" data-fr="Contact" data-en="Contact">Contact</h5>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>Cotonou / Abomey-Calavi, Bénin</li>
-            <li class="mb-2"><i class="bi bi-telephone me-2"></i>+229 01 00 00 00 00</li>
-            <li class="mb-2"><i class="bi bi-whatsapp me-2"></i>+229 01 00 00 00 00</li>
-            <li class="mb-2"><i class="bi bi-envelope me-2"></i>contact@projeunebenin.org</li>
-          </ul>
-        </div>
-        <div class="col-lg-3">
-          <h5 class="mb-3" data-fr="Transparence" data-en="Transparency">Transparence</h5>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="#" data-fr="Rapports financiers" data-en="Financial reports">Rapports financiers</a></li>
-            <li class="mb-2"><a href="#" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a></li>
-            <li class="mb-2" data-fr="RCCM : RB/COT/00/A00000" data-en="Reg. No.: RB/COT/00/A00000">RCCM : RB/COT/00/A00000</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="border-secondary mt-4" />
-      <div class="text-center small"><span data-fr="© 2026 Pro Jeune Bénin. Tous droits réservés." data-en="© 2026 Pro Jeune Bénin. All rights reserved.">© 2026 Pro Jeune Bénin. Tous droits réservés.</span></div>
-    </div>
-  </footer>
+  
+   @include('footer')
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/main.js"></script>

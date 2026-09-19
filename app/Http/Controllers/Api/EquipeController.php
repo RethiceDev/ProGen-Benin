@@ -29,9 +29,12 @@ class EquipeController extends Controller
             'equipe' => $equipe
         ], 201);
     }
-
-    public function menbres(){
-        $menbres = Equipe :: all();
-        return view('team',compact('menbres'));
+    
+    public function listes_equipes(){
+            return response()->json(
+                Equipe :: latest()->get()
+            );
     }
+
+     
 }

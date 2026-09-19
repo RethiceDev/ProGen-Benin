@@ -40,7 +40,7 @@ export function AdminDashboard() {
         );
       case "partenaires":
         return (
-          <PlaceholderPanel
+          <PartenairePanel
             title="Partenaires"
             description="Organisations partenaires de l'ONG"
             actionLabel="Nouveau partenaire"

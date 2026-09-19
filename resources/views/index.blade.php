@@ -43,9 +43,9 @@
             Pro Gen Bénin œuvre pour l'éducation, la santé et l'autonomisation des communautés.
           </p>
           <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
-            <a href="projects.html" class="btn btn-accent btn-lg px-4"
+            <a href="/projects" class="btn btn-accent btn-lg px-4"
               data-fr="Découvrir nos actions" data-en="Discover our work">Découvrir nos actions</a>
-            <a href="support.html" class="btn btn-outline-light btn-lg px-4"
+            <a href="/support" class="btn btn-outline-light btn-lg px-4"
               data-fr="Nous soutenir" data-en="Support us">Nous soutenir</a>
           </div>
         </div>
@@ -58,9 +58,9 @@
     <div class="container d-flex flex-wrap align-items-center justify-content-center gap-2 text-center">
       <i class="bi bi-megaphone-fill"></i>
       <span data-fr="Campagne actuelle : Aide scolaire 2026" data-en="Current campaign: School support 2026">
-        Campagne actuelle : Aide scolaire 2026
+        Campagne actuelle : {{$projet_recents ->titre}}
       </span>
-      <a href="support.html#don" class="btn btn-light btn-sm fw-semibold ms-2"
+      <a href="/support" class="btn btn-light btn-sm fw-semibold ms-2"
         data-fr="Contribuer" data-en="Contribute">Contribuer</a>
     </div>
   </div>
@@ -122,17 +122,23 @@
         
        
       </div>
-      <div class="text-center mt-5">
+     <!--  <div class="text-center mt-5">
         <a href="projects.html" class="btn btn-navy px-4"
           data-fr="Voir tous nos projets" data-en="See all our projects">Voir toutes nos interventions</a>
-      </div>
+      </div> -->
     </div>
   </section>
 
   <!-- ============================================================
        3. NOS RÉSULTATS CHIFFRÉS
        ============================================================ -->
+
+       <div class="text-center mb-5">
+        <h2 class="mt-2" data-fr="Nos 3 axes d'intervention" data-en="Our 3 areas of intervention">Nos Resultats chiffrés</h2>
+      </div>
+
   <section class="stats-section py-5">
+    
     <div class="container">
       <div class="row text-center g-4">
         <div class="col-6 col-lg-3">
@@ -230,7 +236,7 @@
     <div class="container">
       <div class="text-center mb-5">
         <span class="section-eyebrow" data-fr="Actualités" data-en="News">Actualités</span>
-        <h2 class="mt-2" data-fr="Nos activités récentes" data-en="Our recent activities">Nos {{$total_projets}} activités récentes</h2>
+        <h2 class="mt-2" data-fr="Nos activités récentes" data-en="Our recent activities">Nos 3 activités récentes</h2>
       </div>
       <div class="row g-4">
 
@@ -258,7 +264,7 @@
       </div>
 
        <div class="text-center mt-5">
-            <a href="projects.html" class="btn btn-navy px-4"
+            <a href="/projects" class="btn btn-navy px-4"
             data-fr="Voir tous nos projets" data-en="See all our projects">Voir toutes nos activités</a>
       </div>
 
@@ -282,7 +288,7 @@
         <div class="col-lg-4 text-lg-end">
           <a href="support.html#don" class="btn btn-accent btn-lg px-4 mb-2 w-100 w-lg-auto"
             data-fr="Faire un don" data-en="Donate now">Faire un don</a>
-          <a href="support.html#benevolat" class="btn btn-outline-light btn-lg px-4 w-100 w-lg-auto"
+          <a href="/support" class="btn btn-outline-light btn-lg px-4 w-100 w-lg-auto"
             data-fr="Devenir bénévole" data-en="Become a volunteer">Devenir bénévole</a>
         </div>
       </div>
@@ -291,61 +297,7 @@
 
   <!-- ============================================================
        ============================================================ -->
-  <footer class="site-footer pt-5 pb-4">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <div class="d-flex align-items-center mb-3">
-            <span class="brand-mark"><img src="img/ProGen.png" alt="Logo Pro Gen Bénin" style="width: 240px; max-width: none; height: auto; object-fit: contain;padding-top: 13%"></span>
-            <span class="fw-bold text-white fs-5">Pro Gen </span>
-          </div>
-          <p class="small"
-            data-fr="ONG béninoise engagée pour l'éducation, la santé et le développement durable des communautés."
-            data-en="Beninese NGO committed to education, health and sustainable community development.">
-            ONG béninoise engagée pour l'éducation, la santé et le développement durable des communautés.
-          </p>
-          <div class="d-flex gap-2 mt-3">
-            <a href="#" class="social-icon" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="social-icon" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="social-icon" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-            <a href="#" class="social-icon" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-          </div>
-        </div>
-        <div class="col-6 col-lg-2">
-          <h5 class="mb-3" data-fr="Navigation" data-en="Navigation">Navigation</h5>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="about.html" data-fr="À propos" data-en="About">À propos</a></li>
-            <li class="mb-2"><a href="team.html" data-fr="Équipe" data-en="Team">Équipe</a></li>
-            <li class="mb-2"><a href="projects.html" data-fr="Projets" data-en="Projects">Projets</a></li>
-            <li class="mb-2"><a href="support.html" data-fr="Nous soutenir" data-en="Support us">Nous soutenir</a></li>
-            <li class="mb-2"><a href="contact.html" data-fr="Contact" data-en="Contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-3">
-          <h5 class="mb-3" data-fr="Contact" data-en="Contact">Contact</h5>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><i class="bi bi-geo-alt me-2"></i>Cotonou / Abomey-Calavi, Bénin</li>
-            <li class="mb-2"><i class="bi bi-telephone me-2"></i>+229 01 00 00 00 00</li>
-            <li class="mb-2"><i class="bi bi-whatsapp me-2"></i>+229 01 00 00 00 00</li>
-            <li class="mb-2"><i class="bi bi-envelope me-2"></i>contact@proGenbenin.org</li>
-          </ul>
-        </div>
-        <div class="col-lg-3">
-          <h5 class="mb-3" data-fr="Transparence" data-en="Transparency">Transparence</h5>
-          <ul class="list-unstyled small">
-            <li class="mb-2"><a href="#" data-fr="Rapports financiers" data-en="Financial reports">Rapports financiers</a></li>
-            <li class="mb-2"><a href="#" data-fr="Mentions légales" data-en="Legal notice">Mentions légales</a></li>
-            <li class="mb-2" data-fr="RCCM : RB/COT/00/A00000" data-en="Reg. No.: RB/COT/00/A00000">RCCM : RB/COT/00/A00000</li>
-          </ul>
-        </div>
-      </div>
-      <hr class="border-secondary mt-4" />
-      <div class="text-center small">
-        <span data-fr="© 2026 Pro Gen Bénin. Tous droits réservés."
-          data-en="© 2026 Pro Gen Bénin. All rights reserved.">© 2026 Pro Gen Bénin. Tous droits réservés.</span>
-      </div>
-    </div>
-  </footer>
+ @include('footer')
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

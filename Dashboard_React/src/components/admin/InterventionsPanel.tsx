@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pencil, Trash2, Plus, GraduationCap, Droplets, Sprout, HeartHandshake, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from 'axios';
+
 import {
   Dialog,
   DialogContent,
@@ -31,27 +33,7 @@ export type Intervention = {
 };
 
 const INITIAL: Intervention[] = [
-  {
-    id: "i1",
-    titre: "Éducation",
-    description: "Scolarisation, fournitures et soutien scolaire pour les jeunes du Bénin.",
-    icon: "education",
-    statut: "Publié",
-  },
-  {
-    id: "i2",
-    titre: "Santé & Eau",
-    description: "Accès à l'eau potable, hygiène et campagnes de santé communautaire.",
-    icon: "eau",
-    statut: "Publié",
-  },
-  {
-    id: "i3",
-    titre: "Développement & Agriculture",
-    description: "Formation agricole et appui aux activités génératrices de revenus.",
-    icon: "agriculture",
-    statut: "Brouillon",
-  },
+  
 ];
 
 const EMPTY: Intervention = {
@@ -68,6 +50,11 @@ export function InterventionsPanel() {
   const [openForm, setOpenForm] = useState(false);
   const [draft, setDraft] = useState<Intervention>(EMPTY);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  //listes des interventions
+  
+  const[liste, setListes] = useState('');
+  const[loading, setLoading] = useState(true);
 
   const openCreate = () => {
     setDraft({ ...EMPTY, id: crypto.randomUUID() });
@@ -119,6 +106,15 @@ export function InterventionsPanel() {
       alert("Une erreur est survenue lors de l'enregistrement.");
     }
   };
+  
+  useEffect(()=>{
+        const listes_des_interv = async() =>{
+            const res = await axios.get('http://127.0.0.1:8000/api/intervention')
+            setItems(res.data)
+        }
+        listes_des_interv();
+   })
+  
 
   const remove = (id: string) => setItems((prev) => prev.filter((i) => i.id !== id));
 

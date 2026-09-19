@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pencil, Trash2, Plus, ImageIcon, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from 'axios';
+
 import {
   Dialog,
   DialogContent,
@@ -24,45 +26,27 @@ export type Projet = {
 };
 
 const INITIAL: Projet[] = [
-  {
-    id: "p1",
-    titre: "Cantine scolaire de Bohicon",
-    statut: "Publié",
-    detail: "Repas quotidiens pour 320 élèves du primaire.",
-    date_debut: "2026-01-10",
-    date_fin: "2026-07-10",
-    media: "",
-  },
-  {
-    id: "p2",
-    titre: "Forage d'eau potable — Zogbodomey",
-    statut: "Publié",
-    detail: "Deux forages équipés de pompes solaires.",
-    date_debut: "2026-02-01",
-    date_fin: "2026-05-30",
-    media: "",
-  },
-  {
-    id: "p3",
-    titre: "Champ-école maraîcher",
-    statut: "Brouillon",
-    detail: "Formation de 45 jeunes agriculteurs.",
-    date_debut: "2026-09-01",
-    date_fin: "2026-12-15",
-    media: "",
-  },
+ 
 ];
 
 const EMPTY: Projet = { id: "", titre: "", statut: "Brouillon", detail: "", date_debut: "", date_fin: "", media: "" };
 
 /** CRUD view for NGO projects connected to Laravel API. */
 export function ProjetsPanel() {
+
+ //listes 
+
+  
+
+ //enregistrer
+
   const [projets, setProjets] = useState<Projet[]>(INITIAL);
   const [openForm, setOpenForm] = useState(false);
   const [draft, setDraft] = useState<Projet>(EMPTY);
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  /*const [listes, setListes ] = useState([]);*/
+  const [loading, setLoading ] = useState(true);
 
   const openCreate = () => {
     setDraft({ ...EMPTY, id: crypto.randomUUID() });
@@ -97,7 +81,7 @@ export function ProjetsPanel() {
         body: formData,
       });
 
-      if (!response.ok) {
+      /*if (!response.ok) {
         const errorText = await response.text();
         console.error("Réponse serveur en erreur:", errorText);
         throw new Error("Erreur lors de l'enregistrement sur le serveur");
@@ -120,7 +104,7 @@ export function ProjetsPanel() {
         prev.some((p) => p.id === savedProjet.id)
           ? prev.map((p) => (p.id === savedProjet.id ? savedProjet : p))
           : [...prev, savedProjet],
-      );
+        );*/
 
       setOpenForm(false);
 
@@ -134,6 +118,18 @@ export function ProjetsPanel() {
       alert("Impossible d'enregistrer le projet. Vérifiez la console pour plus de détails.");
     }
   };
+
+  useEffect(()  =>{
+    const listes_pro = async() =>{
+        const res = await axios.get('http://127.0.0.1:8000/api/projets')
+        setProjets(res.data)
+        setLoading(false)
+    }
+
+    listes_pro()
+  }, [])
+
+    
 
   const remove = (id: string) => setProjets((prev) => prev.filter((p) => p.id !== id));
 

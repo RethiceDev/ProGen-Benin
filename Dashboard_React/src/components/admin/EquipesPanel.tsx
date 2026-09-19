@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { Pencil, Trash2, Plus, ImageIcon, CheckCircle2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Pencil, Trash2, Plus, ImageIcon, CheckCircle2, Axis3DIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from 'axios';
+
 import {
   Dialog,
   DialogContent,
@@ -23,35 +25,23 @@ export type MembreEquipe = {
 };
 
 const INITIAL: MembreEquipe[] = [
-  {
-    id: "e1",
-    nom: "Jean Dupont",
-    role: "Coordinateur Général",
-    statut: "Publié",
-    bio: "Supervise l'ensemble des activités et partenariats de l'ONG.",
-    avatar: "",
-  },
-  {
-    id: "e2",
-    nom: "Aline Kouton",
-    role: "Responsable Projets",
-    statut: "Publié",
-    bio: "En charge de la planification et du suivi des actions sur le terrain.",
-    avatar: "",
-  },
+  
 ];
 
 const EMPTY: MembreEquipe = { id: "", nom: "", role: "", statut: "Brouillon", bio: "", avatar: "" };
 
 /** CRUD view for NGO team members connected to Laravel API. */
 export function EquipesPanel() {
-  const [membres, setMembres] = useState<MembreEquipe[]>(INITIAL);
+
+  const [equipes, setEquipes] = useState<MembreEquipe[]>(INITIAL);
   const [openForm, setOpenForm] = useState(false);
   const [draft, setDraft] = useState<MembreEquipe>(EMPTY);
 
   // AJOUT : États pour gérer le fichier image sélectionné et le message de succès visuel
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
 
   const openCreate = () => {
     setDraft({ ...EMPTY, id: crypto.randomUUID() });
@@ -102,7 +92,7 @@ export function EquipesPanel() {
         avatar: data.equipe.avatar ? `http://127.0.0.1:8000/storage/${data.equipe.avatar}` : draft.avatar,
       } : draft;
 
-      setMembres((prev) =>
+      setEquipes((prev) =>
         prev.some((m) => m.id === savedMembre.id)
           ? prev.map((m) => (m.id === savedMembre.id ? savedMembre : m))
           : [...prev, savedMembre],
@@ -118,7 +108,18 @@ export function EquipesPanel() {
     }
   };
 
-  const remove = (id: string) => setMembres((prev) => prev.filter((m) => m.id !== id));
+
+   useEffect(() =>{
+    const liste_equipes = async() =>{
+        const res = await axios.get('http://127.0.0.1:8000/api/equipes')
+        //const res = await axios.get('http://127.0.0.1.8000/api/equipes')
+        setEquipes(res.data)
+        setLoading(false)
+    }
+    liste_equipes()
+  })
+
+  const remove = (id: string) => setEquipes((prev) => prev.filter((m) => m.id !== id));
 
   return (
     <section className="space-y-6">
@@ -133,7 +134,7 @@ export function EquipesPanel() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-xl font-semibold text-foreground">Équipe</h2>
-          <p className="text-sm text-muted-foreground">{membres.length} membre(s) enregistré(s)</p>
+          <p className="text-sm text-muted-foreground">{equipes.length} membre(s) enregistré(s)</p>
         </div>
         <Button onClick={openCreate} className="gap-2">
           <Plus className="size-4" /> Nouveau membre
@@ -147,19 +148,18 @@ export function EquipesPanel() {
               <tr>
                 <th className="px-5 py-3 font-semibold">Nom</th>
                 <th className="px-5 py-3 font-semibold">Rôle / Poste</th>
-                <th className="px-5 py-3 font-semibold">Statut</th>
+                <th className="px-5 py-3 font-semibold">Bio</th>
                 <th className="px-5 py-3 font-semibold">Avatar</th>
                 <th className="px-5 py-3 text-right font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {membres.map((m) => (
+              {equipes.map((m) => (
                 <tr key={m.id} className="transition-colors hover:bg-muted/50">
                   <td className="px-5 py-4 font-medium text-foreground">{m.nom}</td>
                   <td className="px-5 py-4 text-muted-foreground">{m.role}</td>
-                  <td className="px-5 py-4">
-                    <StatusBadge status={m.statut} />
-                  </td>
+                  <td className="px-5 py-4 text-muted-foreground">{m.bio}</td>
+
                   <td className="px-5 py-4">
                     {m.avatar ? (
                       <img src={m.avatar} alt={m.nom} className="size-10 rounded-full object-cover" />
@@ -181,7 +181,7 @@ export function EquipesPanel() {
                   </td>
                 </tr>
               ))}
-              {membres.length === 0 && (
+              {equipes.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
                     Aucun membre pour le moment.
